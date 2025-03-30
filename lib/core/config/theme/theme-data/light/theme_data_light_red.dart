@@ -3,26 +3,26 @@ import 'package:flutter_theme_app/core/config/theme/app_colors.dart';
 import 'package:flutter_theme_app/core/config/theme/app_fonts.dart';
 import 'package:flutter_theme_app/core/config/theme/app_text_styles.dart';
 
-ThemeData getDarkTheme() {
+ThemeData getLightRedTheme() {
   return ThemeData(
     useMaterial3: true,
-    scaffoldBackgroundColor: AppColors.grey900,
-    brightness: Brightness.dark,
+    scaffoldBackgroundColor: AppColors.scaffoldBackgroundLightRed,
+    brightness: Brightness.light,
     fontFamily: AppFonts.manrope,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.primary300,
-      brightness: Brightness.dark,
+      seedColor: AppColors.primaryLightRed300,
+      brightness: Brightness.light,
     ),
     textTheme: ThemeData.light().textTheme.apply(
-          bodyColor: AppColors.grey0,
-          displayColor: AppColors.grey0,
+          bodyColor: AppColors.grey900,
+          displayColor: AppColors.grey900,
         ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primary300,
+        backgroundColor: AppColors.primaryLightRed300,
         foregroundColor: AppColors.grey0,
-        disabledBackgroundColor: AppColors.grey800,
-        disabledForegroundColor: AppColors.grey400,
+        disabledBackgroundColor: AppColors.grey100,
+        disabledForegroundColor: AppColors.grey0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
@@ -45,14 +45,14 @@ ThemeData getDarkTheme() {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
         borderSide: const BorderSide(
-          color: AppColors.primary200,
+          color: AppColors.primaryLightRed200,
         ),
       ),
       fillColor: MaterialStateColor.resolveWith((states) {
         if (states.contains(MaterialState.focused)) {
-          return AppColors.darkFillColor;
+          return AppColors.primaryLightRed0;
         }
-        return AppColors.grey800;
+        return AppColors.grey0;
       }),
       filled: true,
       hintStyle: AppTextStyles.mRegular.copyWith(color: AppColors.grey400),
