@@ -1,63 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_theme_app/core/config/theme/cubit/theme_cubit.dart';
-import 'package:flutter_theme_app/core/config/theme/cubit/theme_state.dart';
-import 'package:flutter_theme_app/core/config/theme/extensions/theme_extensions.dart';
 import 'package:flutter_theme_app/core/enum/theme_name.dart';
+import 'package:flutter_theme_app/core/utils/theme_mapper.dart';
+import 'package:flutter_theme_app/core/config/theme/cubit/theme_cubit.dart';
+import 'package:flutter_theme_app/core/config/theme/extensions/theme_extensions.dart';
 
 toggleMode(BuildContext context) {
   final isDark = context.isDarkMode;
   final currentThemeState = context.currentThemeState;
-
+  AppTheme toBeReturnedState;
   if (isDark) {
-    switch (currentThemeState) {
-      case ThemeGreenDarkState():
-        context.read<ThemeCubit>().updateTheme(ThemeGreenLightState());
-        break;
-      case ThemeRedDarkState():
-        context.read<ThemeCubit>().updateTheme(ThemeRedLightState());
-        break;
-      default:
-        context.read<ThemeCubit>().updateTheme(ThemeBlueLightState());
-    }
+    toBeReturnedState = currentThemeState.copyWith(ThemeMode.light);
+    currentThemeState.currentMode = ThemeMode.light;
   } else {
-    switch (currentThemeState) {
-      case ThemeGreenLightState():
-        context.read<ThemeCubit>().updateTheme(ThemeGreenDarkState());
-        break;
-      case ThemeRedLightState():
-        context.read<ThemeCubit>().updateTheme(ThemeRedDarkState());
-        break;
-      default:
-        context.read<ThemeCubit>().updateTheme(ThemeBlueDarkState());
-    }
+    toBeReturnedState = currentThemeState.copyWith(ThemeMode.dark);
+    currentThemeState.currentMode = ThemeMode.dark;
   }
+  context.read<ThemeCubit>().updateTheme(toBeReturnedState);
 }
 
-toggleTheme(BuildContext context, ThemeNameEnum themeName) {
+toggleTheme(BuildContext context, ThemeNames themeName) {
   final isDark = context.isDarkMode;
-
-  if (!isDark) {
-    switch (themeName) {
-      case ThemeNameEnum.green:
-        context.read<ThemeCubit>().updateTheme(ThemeGreenLightState());
-        break;
-      case ThemeNameEnum.red:
-        context.read<ThemeCubit>().updateTheme(ThemeRedLightState());
-        break;
-      default:
-        context.read<ThemeCubit>().updateTheme(ThemeBlueLightState());
-    }
-  } else {
-    switch (themeName) {
-      case ThemeNameEnum.green:
-        context.read<ThemeCubit>().updateTheme(ThemeGreenDarkState());
-        break;
-      case ThemeNameEnum.red:
-        context.read<ThemeCubit>().updateTheme(ThemeRedDarkState());
-        break;
-      default:
-        context.read<ThemeCubit>().updateTheme(ThemeBlueDarkState());
-    }
+  AppTheme toBeReturnedState = themeMapper[themeName]!;
+  if (isDark) {
+    toBeReturnedState = toBeReturnedState.copyWith(ThemeMode.dark);
   }
+  context.read<ThemeCubit>().updateTheme(toBeReturnedState);
 }

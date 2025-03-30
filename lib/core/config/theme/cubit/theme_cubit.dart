@@ -1,51 +1,15 @@
-import 'theme_state.dart';
+import 'package:flutter_theme_app/core/enum/theme_name.dart';
+import 'package:flutter_theme_app/core/utils/theme_mapper.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-class ThemeCubit extends HydratedCubit<ThemeState> {
-  ThemeCubit() : super(ThemeGreenLightState());
+class ThemeCubit extends HydratedCubit<AppTheme> {
+  ThemeCubit() : super(themeMapper[ThemeNames.green]!);
 
-  void updateTheme(ThemeState newState) => emit(newState);
-
-  final String _jsonKey = 'themeMode';
+  void updateTheme(AppTheme newState) => emit(newState);
 
   @override
-  ThemeState? fromJson(Map<String, dynamic> json) {
-    final savedMode = json[_jsonKey];
-    switch (savedMode) {
-      case 'lightGreen':
-        return ThemeGreenLightState();
-      case 'lightRed':
-        return ThemeRedLightState();
-      case 'lightBlue':
-        return ThemeBlueLightState();
-      case 'darkGreen':
-        return ThemeGreenDarkState();
-      case 'darkRed':
-        return ThemeRedDarkState();
-      case 'darkBlue':
-        return ThemeBlueDarkState();
-      default:
-        return ThemeGreenLightState();
-    }
-  }
+  AppTheme? fromJson(Map<String, dynamic> json) => AppTheme.fromMap(json);
 
   @override
-  Map<String, dynamic>? toJson(ThemeState state) {
-    switch (state.runtimeType) {
-      case const (ThemeGreenLightState):
-        return {_jsonKey: 'lightGreen'};
-      case const (ThemeRedLightState):
-        return {_jsonKey: 'lightRed'};
-      case const (ThemeBlueLightState):
-        return {_jsonKey: 'lightBlue'};
-      case const (ThemeGreenDarkState):
-        return {_jsonKey: 'darkGreen'};
-      case const (ThemeRedDarkState):
-        return {_jsonKey: 'darkRed'};
-      case const (ThemeBlueDarkState):
-        return {_jsonKey: 'darkBlue'};
-      default:
-        return {_jsonKey: 'lightGreen'};
-    }
-  }
+  Map<String, dynamic>? toJson(AppTheme state) => state.toMap();
 }
