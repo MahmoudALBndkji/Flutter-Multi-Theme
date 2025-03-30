@@ -16,9 +16,11 @@ class DemoScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                "Demo Screen",
-                style: AppTextStyles.mRegular,
+              Text(
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                style: AppTextStyles.mRegular.copyWith(
+                  color: context.customColors.secondaryColor,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
