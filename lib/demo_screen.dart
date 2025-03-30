@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_theme_app/core/config/theme/app_text_styles.dart';
+import 'package:flutter_theme_app/core/config/theme/cubit/theme_cubit.dart';
+import 'package:flutter_theme_app/core/config/theme/extensions/theme_extensions.dart';
 
 class DemoScreen extends StatelessWidget {
   const DemoScreen({super.key});
@@ -41,7 +44,9 @@ class DemoScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => context.read<ThemeCubit>().updateTheme(
+                      context.isDarkMode ? ThemeMode.light : ThemeMode.dark,
+                    ),
                 child: const Text("Toggle Theme"),
               ),
             ],
