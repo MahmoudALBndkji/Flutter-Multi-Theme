@@ -49,7 +49,7 @@ ThemeData getDarkBlueTheme() {
       ),
       fillColor: MaterialStateColor.resolveWith((states) {
         if (states.contains(MaterialState.focused)) {
-          return AppColors.darkFillColor;
+          return const Color.fromARGB(255, 7, 32, 55);
         }
         return AppColors.grey800;
       }),
